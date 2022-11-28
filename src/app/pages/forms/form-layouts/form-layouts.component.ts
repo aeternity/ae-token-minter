@@ -48,13 +48,6 @@ export class FormLayoutsComponent {
       console.log("Network change:", params.networkId);
     }; */
 
-  /*   aeService.initSDK(onNetworkChange)
-      .then( async ({walletNetworkId, aeSdk} : {walletNetworkId: string, aeSdk: any}) => {
-        this.aeSdk = aeSdk;
-        console.log("Initialised sdk");
-        const test = await this.aeService.showWalletInfo(walletNetworkId);
-
-    }); */
   }
 
   ngOnInit() {
@@ -115,7 +108,6 @@ export class FormLayoutsComponent {
 
     console.log("Compiling....");
     const contract = await this.aeService.aeSdk.getContractInstance({ source });
-    debugger
 
     // deploy
     console.log("Deploying with: ",this.nftData.get('nftBaseUrl').value, this.nftData.get('nftSymbol').value, 1);

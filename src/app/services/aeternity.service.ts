@@ -112,7 +112,8 @@ export class AeternityService {
     // const aci = await this.aeSdk!.
 
     const contract = await this.aeSdk!.getContractInstance({
-      aci: aex141Aci,
+      // aci: aex141Aci,
+      source: aex141nftContract,
       contractAddress: contractAddress,
     });
 
@@ -121,14 +122,19 @@ export class AeternityService {
       .meta_info()
       .then((res) => res.decodedResult);
 
-    let nfts = await Promise.all(
+      console.log("meta info:", metaInfo);
+
+      let { decodedResult : metadata } = await contract.methods.metadata(1);
+      return [metaInfo, metadata["MetadataMap"]]
+
+    /* let nfts = await Promise.all(
       [...new Array(1)].map(async (_, i) => {
         const { decodedResult: metadata } = await contract.methods.metadata(
           i + 1
         );
         }
-      ))
-    
+      )) */
+
     }
 
 
