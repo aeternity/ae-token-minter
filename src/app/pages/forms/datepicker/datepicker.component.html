@@ -48,6 +48,24 @@
             <h6>{{nft.nftDescription}}</h6>
           </div>
         </div>
+
+        <div class="header">
+          
+          <div class="detail">
+            Owner
+          </div>
+          <div>
+            <!-- own working -->
+            <!-- <p>{{nft.nftOwner == 'Loading...' ? 'Loading...' : nft.nftOwner.substring(0,7) + '. . . ' + nft.nftOwner.slice(-4)}}</p> -->
+            <nb-user [onlyPicture]="userPictureOnly"
+            [name]="nft.nftOwner !== 'Loading...'? 
+                    nft.nftOwner.substring(0,7) + '. . .' + nft.nftOwner.slice(-4):
+                    'Loading... '"
+            [picture]="'https://avatars.z52da5wt.xyz/' + nft.nftOwner">
+   </nb-user>
+          </div>
+        </div>
+        
      <!--    <div class="header">
           
           <div class="detail">

@@ -10,7 +10,7 @@ import { ButtonsComponent } from './buttons/buttons.component';
 const routes: Routes = [
   {
     path: '',
-    component: FormsComponent,
+    component: DatepickerComponent,
     children: [
       {
         path: 'inputs',
@@ -29,7 +29,7 @@ const routes: Routes = [
         component: ButtonsComponent,
       },
       {
-        path: 'datepicker',
+        path: 'show/:contractAddress',
         component: DatepickerComponent,
       },
     ],

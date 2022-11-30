@@ -1,10 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { NbIconLibraries } from '@nebular/theme';
+import { NbCardModule, NbIconLibraries } from '@nebular/theme';
 import { StateService } from '../../../@core/utils/state.service';
 
 @Component({
-  selector: 'ngx-status-card',
-  styleUrls: ['./status-card.component.scss'],
+  standalone: true,
+  selector: 'wallet-info-card',
+  styleUrls: ['./wallet-info-card.component.scss'],
+  imports: [NbCardModule],
   template: `
 
     <!-- feature to toggle card on or off:  <nb-card matRipple (click)="on = !on" [ngClass]="{'off': !on}"> -->
@@ -37,7 +39,7 @@ import { StateService } from '../../../@core/utils/state.service';
     </nb-card>
   `,
 })
-export class StatusCardComponent {
+export class WalletInfoCardComponent {
 
   @Input() title: string;
   @Input() type: StatusType;

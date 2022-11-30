@@ -7,6 +7,9 @@ import { NbLayoutDirectionService, NbLayoutDirection } from '@nebular/theme';
 @Injectable()
 export class StateService implements OnDestroy {
 
+  platform : "mobile" | "desktop";
+  browser : string;
+
   protected layouts: any = [
     {
       name: 'One Column',
@@ -51,6 +54,7 @@ export class StateService implements OnDestroy {
       .subscribe(direction => this.updateSidebarIcons(direction));
 
     this.updateSidebarIcons(directionService.getDirection());
+    this.checkForBrowserAndPlattform();
   }
 
   ngOnDestroy() {
@@ -64,6 +68,26 @@ export class StateService implements OnDestroy {
     const endIconClass = isLtr ? 'nb-layout-sidebar-right' : 'nb-layout-sidebar-left';
     startSidebar.icon = startIconClass;
     endSidebar.icon = endIconClass;
+  }
+
+  checkForBrowserAndPlattform(): void{
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+      this.platform = 'mobile';
+    }else{
+      this.platform = 'desktop';
+    }
+
+    const agent = window.navigator.userAgent.toLowerCase();
+    
+    this.browser =
+      agent.indexOf('edge') > -1 ? 'Microsoft Edge'
+        : agent.indexOf('edg') > -1 ? 'Chromium-based Edge'
+        : agent.indexOf('opr') > -1 ? 'Opera'
+        : agent.indexOf('chrome') > -1 ? 'Chrome'
+        : agent.indexOf('trident') > -1 ? 'Internet Explorer'
+        : agent.indexOf('firefox') > -1 ? 'Firefox'
+        : agent.indexOf('safari') > -1 ? 'Safari'
+        : 'other';
   }
 
   setLayoutState(state: any): any {

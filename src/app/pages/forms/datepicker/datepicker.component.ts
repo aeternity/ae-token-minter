@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { NbDateService } from '@nebular/theme';
 import { AeternityService } from '../../../services/aeternity.service';
 import * as dayjs from 'dayjs'
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'ngx-datepicker',
@@ -13,13 +16,18 @@ export class DatepickerComponent {
   min: Date;
   max: Date;
 
+  private sub: Subscription;
+  nftContractAddress: string = ''
+
+
   nfts =
   [{
     nftBaseUrl: '',
     nftName: 'Loading...',
     nftSymbol: "Loading...",
     nftMinted: "Loading...",
-    nftDescription: "Loading..."
+    nftDescription: "Loading...",
+    nftOwner : "Loading..."
     }];
 /*   nfts =
   [{
@@ -28,28 +36,30 @@ export class DatepickerComponent {
     }]; */
 
     
-  constructor(protected dateService: NbDateService<Date>, aeService: AeternityService) {
+  constructor(protected dateService: NbDateService<Date>, aeService: AeternityService, private route: ActivatedRoute) {
+    this.sub = this.route.params.subscribe(params => {
+      this.nftContractAddress = params['contractAddress'];
+      
+      (async () => {
+        
+        // setTimeout(async () => {
 
-    (async () => {
-      
-      
-      // setTimeout(async () => {
-        // aeService.readNftDataFrom("ct_2GXBBp9BdAytxRPDYropAKUQJxgeZBiufuktBbPxB3dk2JGUWR")
-        let  [metaInfo, nftDataFromContract] = await aeService.readNftDataFrom("ct_jYugRQynbQZxtGKLGaRH8HDZH53pH71j6cr7V5YZdvf18B3Sx")
-        
-        console.log("nfts:", nftDataFromContract)
-        
-        this.nfts = nftDataFromContract.map((nft) => {return {
-          nftName : nft.get('name'),
-          nftBaseUrl : nft.get('media_url'),
-          nftDescription : nft.get('description'),
-          nftSymbol: metaInfo.symbol,
-          nftMinted: dayjs(1669636502271).format('DD MMM YYYY')
+          // let  [metaInfo, nftDataFromContract] = await aeService.readNftDataFrom("ct_jYugRQynbQZxtGKLGaRH8HDZH53pH71j6cr7V5YZdvf18B3Sx")
+          let  [metaInfo, nftDataFromContract, owner] = await aeService.readNftDataFrom(this.nftContractAddress)
           
-        }})
-        
-      })()
-      
+          console.log("nfts:", nftDataFromContract)
+          
+          this.nfts = nftDataFromContract.map((nft) => {return {
+            nftName : nft.get('name'),
+            nftBaseUrl : nft.get('media_url'),
+            nftDescription : nft.get('description'),
+            nftSymbol: metaInfo.symbol,
+            nftMinted: dayjs(1669636502271).format('DD MMM YYYY'),
+            nftOwner: owner
+          }})
+        })()
+           });
+
 // }, 3500);
 
   }

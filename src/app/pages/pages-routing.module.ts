@@ -6,6 +6,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 
+import { FormLayoutsComponent } from './forms/form-layouts/form-layouts.component';
+import { DatepickerComponent } from './forms/datepicker/datepicker.component';
+
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
@@ -19,12 +22,11 @@ const routes: Routes = [{
       component: DashboardComponent,
     },
     {
-      path: 'layout',
-      loadChildren: () => import('./layout/layout.module')
-        .then(m => m.LayoutModule),
+      path: 'mint',
+      component: FormLayoutsComponent,
     },
     {
-      path: 'forms',
+      path: 'show/:contractAddress',
       loadChildren: () => import('./forms/forms.module')
         .then(m => m.FormsModule),
     },

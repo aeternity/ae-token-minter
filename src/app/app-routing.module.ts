@@ -11,7 +11,7 @@ import {
 
 export const routes: Routes = [
   {
-    path: 'pages',
+    path: 'nft',
     loadChildren: () => import('./pages/pages.module')
       .then(m => m.PagesModule),
   },

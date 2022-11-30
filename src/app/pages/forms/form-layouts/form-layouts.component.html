@@ -1,6 +1,14 @@
 <div class="row">
   <div class="col-md-6">
+
+    <ngx-status-card [title]="'HEY, LET \'S GET STARTED !'" [type]="'primary'" [nbIconName]="'nb-power'" >
+      <!-- <i [ngClass]="'nb-checkmark'"></i> -->
+      Get the superhero wallet for free<br> and start minting nfts! 
+    </ngx-status-card>
+
     <nb-card class="slideUp">
+      
+
       <nb-card-header>Data & Details</nb-card-header>
       <nb-card-body>
         <form [formGroup]="nftData">
@@ -93,7 +101,7 @@
     <!-- Success notification-->
     <div *ngIf="this.aeService.deployedNftAddress != ''" class="slideUpNotification" >
     <!-- <div *ngIf="true" class="slideUpNotification" > -->
-      <ngx-status-card [title]="'NFT MINTED !'" [type]="'success'">
+      <ngx-status-card [title]="'NFT MINTED !'" [type]="'success'" [nbIconName]="'nb-checkmark'">
         <!-- <i [ngClass]="'nb-checkmark'"></i> -->
         Your NFT has successfully been <br> minted to the Blockchain! 
       </ngx-status-card>

@@ -84,5 +84,6 @@ const materialModules = [
     MaterialInputsComponent,
     MaterialButtonsComponent,
   ],
+  exports: [DatepickerComponent]
 })
 export class FormsModule { }
