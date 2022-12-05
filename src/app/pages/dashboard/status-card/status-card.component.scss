@@ -1,6 +1,9 @@
 @import '../../../@theme/styles/themes';
 
 @include nb-install-component() {
+  
+  // determine thw length which the shiny effect has to travel
+  $shinyWidth: 51vw;
 
   .shinyCard {
     position: relative;
@@ -55,14 +58,14 @@
     // psuedo-elements for right- and left-side shine animations
     &::before,
     &::after {
-      transform: translateX(700px) skewX(-15deg);
+      transform: translateX($shinyWidth) skewX(-15deg);
       transition: 0.7s;
     }
 
     // on initial loading
     &::before,
     &::after {
-      transform: translateX(700px) skewX(-15deg);
+      transform: translateX($shinyWidth) skewX(-15deg);
       transition: 0.7s;
       /* transition-delay: 1s;
       transition-property: transform; */

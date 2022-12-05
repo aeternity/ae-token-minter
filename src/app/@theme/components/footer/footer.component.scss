@@ -13,7 +13,8 @@
 
     a {
       padding: 0.4rem;
-      color: nb-theme(text-hint-color);
+      color: #e0e0e0;
+      /* color: nb-theme(text-hint-color); */
       transition: color ease-out 0.1s;
 
       &:hover {

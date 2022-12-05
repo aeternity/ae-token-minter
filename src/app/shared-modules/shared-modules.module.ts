@@ -6,6 +6,8 @@ import {
 } from '@nebular/theme';
 import {MatLegacyInputModule as MatInputModule} from '@angular/material/legacy-input';
 import { FormsModule } from '@angular/forms';
+import { NgIconsModule } from '@ng-icons/core';
+import { cryptoAe } from '@ng-icons/cryptocurrency-icons';
 
 
 const materialModules = [
@@ -19,12 +21,14 @@ const materialModules = [
     CommonModule,
     ...materialModules,
     NbSpinnerModule,
-    FormsModule
+    FormsModule,
+    NgIconsModule.withIcons({ cryptoAe }),
   ],
   exports: [
     ...materialModules,
     NbSpinnerModule,
-    FormsModule
+    FormsModule,
+    NgIconsModule
   ]
 })
 export class SharedModulesModule { }
