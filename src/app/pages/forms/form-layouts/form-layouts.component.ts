@@ -6,7 +6,8 @@ import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidatorFn, Val
 import { AeternityService } from '../../../services/aeternity.service';
 // import { aex141nft } from '../../../interfaces/NFT';
 import { aex141nftContract } from '../../../../assets/contracts/aex141-nft-collection-example/MintableMappedMetadataNFT-flattened.aes'
-
+import { StateService } from '../../../@core/utils';
+import { WalletConnectionStatus } from '../../../services/aeternity.service'
 @Component({
   selector: 'ngx-form-layouts',
   styleUrls: ['./form-layouts.component.scss'],
@@ -22,7 +23,9 @@ export class FormLayoutsComponent {
   private destroy$ = new Subject<void>();
   cameras: Camera[];
   selectedCamera: Camera;
- /* view-related end  */
+
+  walletInstallPromptCanBeShown : boolean = false
+  /* view-related end  */
 
 
   /* dApp related start */
@@ -33,12 +36,17 @@ export class FormLayoutsComponent {
     { label: 'Mintable / Burnable', value: 'mintable' },
   ];
 
+  deployedNftAddress; // contract address of the deployed NFT
 
   /* dApp related end  */
+  
+  /* helpers start  */
+  walletConnectionStatus = WalletConnectionStatus;
 
   constructor(
     private securityCamerasService: SecurityCamerasData,
-    public aeService: AeternityService 
+    public aeService: AeternityService,
+    public state : StateService
   ){
     this.isSingleView = true; // UI
 
@@ -56,7 +64,13 @@ export class FormLayoutsComponent {
       nftBaseUrl: new UntypedFormControl("", [Validators.required, this.urlRegexCheck()]),
       nftSymbol: new UntypedFormControl("", [Validators.required]),
       nftDescription: new UntypedFormControl("", [Validators.required]),
+
     })
+    
+    setTimeout(() => {
+      this.walletInstallPromptCanBeShown = true
+    }, 2000);
+
 
     // setInterval(()=> {console.log(this.contractTypeOption)},3000)
 
@@ -148,6 +162,7 @@ export class FormLayoutsComponent {
     this.aeService.deployedNftAddress = contract.deployInfo.address;
     this.showSpinnerOnMintButton = false;
 
+    this.deployedNftAddress = contract.deployInfo.address;
   }
  
   log(event){

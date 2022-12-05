@@ -12,7 +12,9 @@
     </a>
     <a class="logo" href="#" (click)="navigateHome()">NFT-<span>Minter</span></a>
   </div>
-  <nb-select
+
+  <!-- theme selector -->
+ <!--  <nb-select
     status="primary"
     matRipple
     [selected]="currentTheme"
@@ -23,14 +25,14 @@
       [value]="theme.value"
       matRipple
     >{{ theme.name }}</nb-option>
-  </nb-select>
+  </nb-select> -->
 </div>
 
 <div class="header-container">
 
-  <mat-form-field  style="transform: translateY(7px)" [ngClass]="true ? 'mat-form-field-hide-placeholder' : 'mat-form-field-hide-placeholder' " appearance="fill">
+  <mat-form-field  style="transform: translateY(7px)" [ngClass]="'mat-form-field-hide-placeholder'" appearance="fill">
     <mat-label>Search Token or NFT</mat-label>
-    <input matInput placeholder="Paste the contract address of your Token or NFT, e.g. ct_1337..">
+    <input [(ngModel)]="this.searchFormInput" (keydown.enter)="showToken($event)" matInput placeholder="Paste the contract address of your Token or NFT, e.g. ct_1337..">
     <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
     <mat-icon class="searchIcon" matSuffix>search</mat-icon>
     <!-- <mat-hint>Hint</mat-hint> -->

@@ -49,6 +49,8 @@
     "@nebular/eva-icons": "9.0.0",
     "@nebular/security": "9.0.0",
     "@nebular/theme": "9.0.0",
+    "@ng-icons/core": "^22.4.0",
+    "@ng-icons/cryptocurrency-icons": "^22.4.0",
     "@swimlane/ngx-charts": "^14.0.0",
     "angular2-chartjs": "0.4.1",
     "bootstrap": "4.3.1",

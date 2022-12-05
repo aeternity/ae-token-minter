@@ -7,6 +7,7 @@ import { map, takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { RippleService } from '../../../@core/utils/ripple.service';
 import { AeternityService } from '../../../services/aeternity.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-header',
@@ -19,6 +20,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public readonly materialTheme$: Observable<boolean>;
   userPictureOnly: boolean = false;
   user: any;
+
+  public searchFormInput: string
 
   themes = [
     {
@@ -59,7 +62,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService,
     private rippleService: RippleService,
-    public aeternityservice: AeternityService
+    public aeternityservice: AeternityService,
+    public router: Router
   ) {
 
     
@@ -104,6 +108,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.currentTheme = themeName;
         this.rippleService.toggle(themeName?.startsWith('material'));
       });
+  }
+
+  showToken(event){
+    this.router.navigate(['/nft/show', event.target.value])
+    this.searchFormInput = null
   }
 
   ngOnDestroy() {

@@ -2,6 +2,10 @@
 
 @include nb-install-component() {
 
+/*   :host {
+    display: flex;
+  } */
+
   .shinyCard {
     position: relative;
     overflow: hidden;
@@ -84,6 +88,8 @@
       &:hover{
         background-image: linear-gradient(to right, #353535, #353535)!important;
       }
+
+    /* flex-grow: 1; */
   }
 
   nb-card {
@@ -95,6 +101,10 @@
     .icon-container {
       height: 100%;
       padding: 0.625rem;
+      /* display: flex;
+      flex-grow: 1; */
+     /*  display: flex;
+      flex-grow: 1; */
     }
 
     .icon {

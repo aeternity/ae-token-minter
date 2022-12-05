@@ -1,6 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { NbIconLibraries } from '@nebular/theme';
 import { StateService } from '../../../@core/utils/state.service';
+import { Router } from '@angular/router';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { NbPopoverDirective } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-status-card',
@@ -22,13 +25,13 @@ import { StateService } from '../../../@core/utils/state.service';
         </div>
       </div>
 
-      <div class="icon-container" style="margin-left: auto">
+      <div (click)="this.router.navigate(['/nft/show', this.nftAddress])" class="icon-container" style="margin-left: auto">
         <div class="greyContainer icon status-{{ type }}">
         View
         </div>
       </div>
 
-      <div class="icon-container" style="margin-left: 0">
+      <div (click)="this.copyContractAddress()" nbPopover="Copied to clipboard !" nbPopoverTrigger="noop" class="icon-container" style="margin-left: 0">
         <div class="greyContainer icon status-{{ type }}">
         Share
         </div>
@@ -43,11 +46,23 @@ export class StatusCardComponent {
   @Input() type: StatusType;
   @Input() on = true;
   @Input() nbIconName: string;
+  @Input() nftAddress: string;
 
-  constructor(iconsLibrary: NbIconLibraries, state: StateService) {
+  @ViewChild(NbPopoverDirective) popover: NbPopoverDirective;
+
+  
+  constructor(iconsLibrary: NbIconLibraries, state: StateService, public router: Router, private clipboard: Clipboard) {
     let icons = Array.from(iconsLibrary.getPack('eva').icons.keys())
       .filter(icon => icon.indexOf('outline') === -1);
 console.log(icons)
+  }
+
+  copyContractAddress(){
+    this.clipboard.copy(this.nftAddress);
+    this.popover.show();
+    setTimeout(() => {
+      this.popover.hide();
+    }, 2000);
   }
   
 }

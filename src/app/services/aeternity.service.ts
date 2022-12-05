@@ -35,8 +35,7 @@ export class AeternityService {
 
   deployedNftAddress = '';
 
-  status: WalletConnectionStatus = WalletConnectionStatus.Connecting
-  WalletConnectionStatus = WalletConnectionStatus
+  walletConnectionStatus: WalletConnectionStatus = WalletConnectionStatus.Connecting
   sdkStateObservable: Observable<Object>;
 
   constructor() { 
@@ -59,12 +58,12 @@ export class AeternityService {
     
     if (walletNetworkId !== networkId) {
       this.sdkState.error = `Connected to the wrong network "${walletNetworkId}". please switch to "${networkId}" in your wallet.`;
-      this.status = WalletConnectionStatus.Error;
+      this.walletConnectionStatus = WalletConnectionStatus.Error;
       return;
     }
     if (this.aeSdk == null) {
       this.sdkState.error = `SDK instance is not ready yet.`;
-      this.status = WalletConnectionStatus.Error;
+      this.walletConnectionStatus = WalletConnectionStatus.Error;
       return;
     }
 
@@ -76,7 +75,7 @@ export class AeternityService {
     console.log(this.sdkState);
    
     // this.sdkState.nodeUrl = (await this.aeSdk.getNodeInfo()).url;
-    this.status = WalletConnectionStatus.Connected;
+    this.walletConnectionStatus = WalletConnectionStatus.Connected;
     this.sdkStateObservable = new Observable((observer) => {
       observer.next(this.sdkState);
       observer.complete();

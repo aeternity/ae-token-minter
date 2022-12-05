@@ -29,6 +29,7 @@ import { SolarComponent } from './solar/solar.component';
 import { PlayerComponent } from './rooms/player/player.component';
 import { TrafficComponent } from './traffic/traffic.component';
 import { TrafficChartComponent } from './traffic/traffic-chart.component';
+import { WalletInfoCardComponent } from './wallet-info-card/wallet-info-card.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -66,9 +67,11 @@ import { FormsModule } from '@angular/forms';
     SolarComponent,
     TrafficComponent,
     TrafficChartComponent,
+    WalletInfoCardComponent
   ], exports:[
     SecurityCamerasComponent,
-    StatusCardComponent
+    StatusCardComponent,
+    WalletInfoCardComponent
   ]
 })
 export class DashboardModule { }
