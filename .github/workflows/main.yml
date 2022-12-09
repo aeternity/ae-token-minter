@@ -11,9 +11,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Set up node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '14.20.1'
           cache: 'npm'
 
       - name: Install dependencies
@@ -21,6 +21,9 @@ jobs:
         
       - name: Fix typescript version
         run: npm install -g typescript@4.8.2
+
+      - name: Log local TS version
+        run: node_modules/.bin/tsc -v
 
       - name: Build
         run: npm run build:prod
