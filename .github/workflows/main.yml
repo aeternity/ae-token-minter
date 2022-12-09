@@ -13,6 +13,7 @@ jobs:
       - name: Set up node.js
         uses: actions/setup-node@v3.3.0
         with:
+          typescript-version: '4.8.2'
           node-version: '14'
           cache: 'npm'
 
