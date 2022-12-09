@@ -8,13 +8,13 @@
 /node_modules_backup/*
 
 # include manual fix in scss necessary due to angular 15 update
-!/node_modules/@nebular
-/node_modules/@nebular/*
-!/node_modules/@nebular/theme
-/node_modules/@nebular/theme/*
-!/node_modules/@nebular/theme/components
-/node_modules/@nebular/theme/components/*
-!/node_modules/@nebular/theme/components/layout
+# !/node_modules/@nebular
+# /node_modules/@nebular/*
+# !/node_modules/@nebular/theme
+# /node_modules/@nebular/theme/*
+# !/node_modules/@nebular/theme/components
+# /node_modules/@nebular/theme/components/*
+# !/node_modules/@nebular/theme/components/layout
 
 # IDEs and editors
 /.idea
