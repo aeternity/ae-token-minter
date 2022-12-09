@@ -13,12 +13,14 @@ jobs:
       - name: Set up node.js
         uses: actions/setup-node@v2
         with:
-          typescript-version: '4.8.x'
           node-version: '14'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm i --force
+        
+      - name: Fix typescript version
+        run: npm install -g typescript@4.8.2
 
       - name: Build
         run: npm run build:prod
