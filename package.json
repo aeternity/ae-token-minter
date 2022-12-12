@@ -1,6 +1,6 @@
 {
   "name": "ae-minter",
-  "version": "8.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
     "conventional-changelog": "conventional-changelog",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "npm run build -- --configuration production --aot",
+    "build:prod": "npm run build -- --configuration production --aot --base-href /ae-token-minter/",
     "test": "ng test",
     "test:coverage": "rimraf coverage && npm run test -- --code-coverage",
     "lint": "ng lint",
