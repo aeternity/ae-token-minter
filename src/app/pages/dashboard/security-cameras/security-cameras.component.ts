@@ -60,7 +60,8 @@ export class SecurityCamerasComponent implements OnInit, OnDestroy, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     
     if (changes.nftBaseUrl && changes.nftBaseUrl.currentValue !== "" ) {
-      fetch("http://95.216.27.196:8081/proxy/" + changes.nftBaseUrl.currentValue , {
+      /* fetch("http://95.216.27.196:8081/proxy/" + changes.nftBaseUrl.currentValue , { */
+      fetch(changes.nftBaseUrl.currentValue , {
       /*   headers: {
           'Access-Control-Allow-Origin':'*'
         } */
