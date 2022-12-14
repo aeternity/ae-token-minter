@@ -30,6 +30,7 @@
     "postinstall": "ngcc --properties es2015 es5 browser module main --first-only --create-ivy-entry-points --tsconfig \"./src/tsconfig.app.json\" && cp ./modified_packages/_layout.component.theme.scss ./node_modules/@nebular/theme/components/layout/"
   },
   "dependencies": {
+    "aeternity-fungible-token": "github:aeternity/aeternity-fungible-token",
     "@aeternity/aepp-sdk": "^12.1.3",
     "@aeternity/aeproject": "^4.2.0",
     "@angular-devkit/core": "^15.0.0",

@@ -9,7 +9,8 @@ import {
   NbRadioModule,
   NbSelectModule,
   NbUserModule,
-  NbPopoverModule
+  NbPopoverModule,
+  NbTooltipModule
 } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
@@ -38,6 +39,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 /* import { SecurityCamerasComponent } from './security-cameras/security-cameras.component'; */
 import { DashboardModule } from '../dashboard/dashboard.module'
 import { SharedModulesModule } from '../../shared-modules/shared-modules.module';
+import { FungibleTokenComponent } from './fungible-token/fungible-token.component';
 //import { SecurityCamerasComponent } from '../dashboard/dashboard.module'
 
 
@@ -69,6 +71,7 @@ const materialModules = [
     NbDatepickerModule,
     FormsRoutingModule,
     NbSelectModule,
+    NbTooltipModule,
     NbIconModule,
     ngFormsModule,
     DashboardModule,
@@ -80,6 +83,7 @@ const materialModules = [
     ButtonsComponent,
     FormInputsComponent,
     FormLayoutsComponent,
+    FungibleTokenComponent,
     DatepickerComponent,
     MaterialInputsComponent,
     MaterialButtonsComponent,

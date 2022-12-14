@@ -8,6 +8,7 @@ import { NotFoundComponent } from './miscellaneous/not-found/not-found.component
 
 import { FormLayoutsComponent } from './forms/form-layouts/form-layouts.component';
 import { DatepickerComponent } from './forms/datepicker/datepicker.component';
+import { FungibleTokenComponent } from './forms/fungible-token/fungible-token.component';
 
 const routes: Routes = [{
   path: '',
@@ -24,6 +25,10 @@ const routes: Routes = [{
     {
       path: 'mint',
       component: FormLayoutsComponent,
+    },
+    {
+      path: 'create',
+      component: FungibleTokenComponent,
     },
     {
       path: 'show/:contractAddress',

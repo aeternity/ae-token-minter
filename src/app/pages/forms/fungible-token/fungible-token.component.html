@@ -1,0 +1,154 @@
+<div class="row">
+  <div class="col-md-6">
+
+    
+    <div *ngIf="walletInstallPromptCanBeShown" class="slideInWhenWalletNotification">
+      <!-- <wallet-info-card style *ngIf="state.platform == 'desktop' && ( state.browser == 'Chrome' || state.browser == 'Firefox' )" -->
+      <wallet-info-card  *ngIf="state.platform == 'desktop' && ( state.browser == 'Chrome' || state.browser == 'Firefox' ) && aeService.walletConnectionStatus != walletConnectionStatus.Connected" 
+        [title]="'HEY, LET \'S GET STARTED !'"
+        [type]="'primary'" 
+        [nbIconName]="'nb-power'"
+        [buttonCaption]="'LET\'S GO !'"
+        [buttonURL]="state.browser == 'Firefox' ? 'https://addons.mozilla.org/en-US/firefox/addon/superhero-wallet/' : 'https://chrome.google.com/webstore/detail/superhero/mnhmmkepfddpifjkamaligfeemcbhdne?hl=en' "
+        >
+        Get the superhero wallet for free<br> and create your token! 
+      </wallet-info-card>
+ <!-- misc browsers on desktop, safari etc -->
+      <wallet-info-card  *ngIf="state.platform == 'desktop' && !(state.browser == 'Chrome' || state.browser == 'Firefox' )"
+        class="safari_only"
+        [title]="'OH HEY THERE....'" 
+        [type]="'primary'" 
+        [nbIconName]="'nb-info'"
+        [buttonCaption]="'LET\'S GO !'"
+        [buttonURL]="'https://www.mozilla.org/en-US/firefox/new/'"
+        >
+        A WALLET IS REQUIRED TO CREATE TOKENS<br> PLEASE USE CHROME OR FIREFOX ! 
+      </wallet-info-card>
+
+      <!-- mobile -->
+      <wallet-info-card  *ngIf="state.platform == 'mobile'"
+        [title]="'AH, DAMN !'" 
+        [type]="'primary'" 
+        [nbIconName]="'nb-info'"
+        [buttonCaption]="'LET\'S GO !'"
+        [buttonURL]=""
+      >
+      WE'RE LAUNCHING ON MOBILE SOON !<br> PLEASE USE FROM DESKTOP BROWSER ! 
+    </wallet-info-card>
+
+      
+    </div>
+
+    <nb-card class="slideUp">
+      
+
+      <nb-card-header> Numbers & Infos</nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="tokenData">
+          <!-- name -->
+          <!-- <div class="form-group row" nbTooltip="This is a tooltip" nbTooltipIcon="home-outline" nbTooltipTrigger="noop" nbTooltipDisabled="false"> tooltip variant-->
+          <div class="form-group row" nbPopover="Token Name is required." nbPopoverTrigger="noop" nbPopoverContext="tokenName">
+            <label for="inputTokenName" class="label col-sm-3 col-form-label">Token Name</label>
+            <div class="col-sm-9 leaveSpaceForHelp">
+              <input formControlName="tokenName" name="tokenName" type="text" nbInput fullWidth id="tokenName" placeholder="The Name of your Token" (blur)="checkValidity('tokenName')">
+            </div> 
+            <nb-icon class="centerIcon" [icon]="'question-mark-circle-outline'" pack="eva" nbPopover="Enter a Name for your Token. E.g. 'DigiDollar' " nbPopoverTrigger="hover" nbPopoverPlacement="right"></nb-icon>
+          </div>
+            
+          <!-- symbol -->
+          <div class="form-group row" nbPopover="A symbol for your token is required." nbPopoverTrigger="noop" nbPopoverContext="tokenSymbol">
+            <label for="inputTokenSymbol" class="label col-sm-3 col-form-label">Symbol</label>
+            <div class="col-sm-9 leaveSpaceForHelp">
+              <input type="text" formControlName="tokenSymbol" name="tokenSymbol"  nbInput fullWidth id="tokenSymbol" placeholder="Short Symbol of your token, e.g. 'DD'" (blur)="checkValidity('tokenSymbol')">
+            </div>
+            <nb-icon class="centerIcon" [icon]="'question-mark-circle-outline'" pack="eva" nbPopover="Pick an iconic symbol for your Token, e.g. DD " nbPopoverTrigger="hover" nbPopoverPlacement="right"></nb-icon>
+          </div>
+
+          <!-- decimals -->
+          <div class="form-group row" nbPopover="Please provide decimals (18 recommended)" nbPopoverTrigger="noop" nbPopoverContext="tokenDecimals">
+            <label for="inputTokenDecimals" class="label col-sm-3 col-form-label">Decimals</label>
+            <div class="col-sm-9 leaveSpaceForHelp">
+              <input type="text" formControlName="tokenDecimals" name="tokenSymbol"  nbInput fullWidth id="inputtokenDecimals" placeholder="Number of decimals the token can have" (blur)="checkValidity('tokenDecimals')">
+            </div>
+            <nb-icon class="centerIcon" [icon]="'question-mark-circle-outline'" pack="eva" nbPopover="Decimals are needed to transfer a fraction of a token. 18 are the strongly recommended practice " nbPopoverTrigger="hover" nbPopoverPlacement="right"></nb-icon>
+          </div>
+          
+
+          <!-- Balance Owner -->
+          <div class="form-group row" nbPopover="You need to generate an initial token supply" nbPopoverTrigger="noop" nbPopoverContext="tokenBalanceOwner">
+            <label for="inputTokenBalanceOwner" class="label col-sm-3 col-form-label">Balance Owner</label>
+            <div class="col-sm-9 leaveSpaceForHelp">
+              <input type="url" formControlName="tokenBalanceOwner" name="tokenBalanceOwner" nbInput fullWidth id="inputTokenBalanceOwner" placeholder="Initial balance of the token creator" (blur)="checkValidity('tokenBalanceOwner')">
+            </div>
+            <nb-icon class="centerIcon" [icon]="'question-mark-circle-outline'" pack="eva" nbPopover="How many tokens shall exist? They will all be assigned to you in the beginning." nbPopoverTrigger="hover" nbPopoverPlacement="right"></nb-icon>
+          </div>
+
+          <!-- NFT type  -->
+          <!-- <div class="form-group row">
+            <label for="inputnftBaseUrl1" class="label col-sm-3 col-form-label">Data Type</label>
+            <div class="col-sm-9">
+
+              <nb-select matRipple selected="1">
+                <nb-option matRipple value="1">URL</nb-option>
+                <nb-option matRipple value="2">IPFS</nb-option>
+                <nb-option matRipple value="2">Object ID</nb-option>
+                <nb-option matRipple value="2">Map</nb-option>
+              </nb-select>
+    
+            </div>
+          </div> -->
+
+          <!-- Contract type. -->
+<!--           <div class="form-group row">
+            <label class="col-sm-3 label">Contract Type</label>
+            <div class="col-sm-9">
+              <nb-radio-group name="contractTypeOption" [(value)]="contractTypeOption" >
+                <nb-radio *ngFor="let option of contractTypes" [value]="option.value" [checked]="option.checked">{{ option.label}}</nb-radio>
+
+              </nb-radio-group>
+            </div>
+          </div> -->
+<!-- Mint Button -->
+          <div class="form-group row">
+            <div class="offset-sm-3 col-sm-9" style="margin-top: 25px;">
+              <button type="submit" 
+              [disabled]="!tokenData.valid || showSpinnerOnMintButton || aeService.walletConnectionStatus != walletConnectionStatus.Connected" 
+              (click)="mint()" 
+              nbButton status="primary"
+              nbButton 
+              matRipple 
+              status="primary" 
+              size="giant" 
+              [nbSpinner]="showSpinnerOnMintButton" 
+              nbSpinnerStatus="primary" 
+              nbSpinnerSize="large" 
+              nbSpinnerMessage=""
+              >CREATE TOKEN</button>
+            </div>
+          </div>
+
+        </form>
+
+      </nb-card-body>
+    </nb-card>
+    
+    <!-- Success notification-->
+    <div *ngIf="this.aeService.deployedNftAddress != ''" class="slideUpNotification" >
+    <!-- <div *ngIf="true" class="slideUpNotification" > -->
+      <ngx-status-card [title]="'NFT MINTED !'" [type]="'success'" [nbIconName]="'nb-checkmark'" [nftAddress]="deployedNftAddress">
+        <!-- <i [ngClass]="'nb-checkmark'"></i> -->
+        Your NFT has successfully been <br> minted to the Blockchain! 
+      </ngx-status-card>
+    </div>
+  
+
+  </div>
+
+
+ <!-- NFT Preview -->
+  <!-- <ngx-security-cameras class="col-md-6 centerPreview slideLeft" [nftBaseUrl]="this.nftData.get('nftBaseUrl').value" [nftName]="this.nftData.get('nftName').value" [helpMessage]="'The preview does not represent the real size of your NFT.'"></ngx-security-cameras> -->
+
+
+  
+
+</div>
