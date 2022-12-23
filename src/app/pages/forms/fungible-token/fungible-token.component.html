@@ -133,11 +133,11 @@
     </nb-card>
     
     <!-- Success notification-->
-    <div *ngIf="this.aeService.deployedNftAddress != ''" class="slideUpNotification" >
+    <div *ngIf="this.deployedTokenAddress != null" class="slideUpNotification" >
     <!-- <div *ngIf="true" class="slideUpNotification" > -->
-      <ngx-status-card [title]="'NFT MINTED !'" [type]="'success'" [nbIconName]="'nb-checkmark'" [nftAddress]="deployedNftAddress">
+      <ngx-status-card [title]="'TOKEN CREATED !'" [type]="'success'" [nbIconName]="'nb-checkmark'" [contractType]="'token'" [nftAddress]="deployedTokenAddress">
         <!-- <i [ngClass]="'nb-checkmark'"></i> -->
-        Your NFT has successfully been <br> minted to the Blockchain! 
+        Your Token has successfully been <br> mined on the Blockchain! 
       </ngx-status-card>
     </div>
   
@@ -145,8 +145,68 @@
   </div>
 
 
- <!-- NFT Preview -->
+ <!-- Code Preview -->
   <!-- <ngx-security-cameras class="col-md-6 centerPreview slideLeft" [nftBaseUrl]="this.nftData.get('nftBaseUrl').value" [nftName]="this.nftData.get('nftName').value" [helpMessage]="'The preview does not represent the real size of your NFT.'"></ngx-security-cameras> -->
+  <!-- <ngx-monaco-editor class="col-md-6 centerPreview slideLeft" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor> -->
+  <div class="col-md-6 centerPreview slideLeft">
+    <nb-card size="giant" class="col-md-12 noPadding">
+
+      <nb-card-header>
+        Code Preview  &nbsp; <nb-icon class="centerIcon" [icon]="'question-mark-circle-outline'" pack="eva" nbPopover="The token contract code you are about to deploy" nbPopoverTrigger="hover" nbPopoverPlacement="right"></nb-icon>
+      </nb-card-header>
+      <ngx-monaco-editor class="editor-container" [options]="editorOptions" [(ngModel)]="code">  </ngx-monaco-editor>
+
+      <div class="grid-container">
+        <div class="single-view" *ngIf="isSingleView">
+          
+          <!-- <div class="camera single" [style.background-image]="'url(' + 'assets/images/placeholder.png' + ')'"> -->
+          <div class="camera single">
+          <!-- <div class="camera single" [style.background-image]="'url(' + nftBaseUrl != '' ? nftBaseUrl : 'assets/images/camera3.jpg' + ')'"> -->
+            
+          </div>
+        </div>
+      </div>
+    
+
+
+      <nb-card-footer class="hideFooter">
+
+          <button type="submit" 
+          nbButton status="primary"
+          nbButton 
+          matRipple 
+          status="primary" 
+          size="giant" 
+          [nbSpinner]="showSpinnerOnMintButton" 
+          nbSpinnerStatus="primary" 
+          nbSpinnerSize="large" 
+          nbSpinnerMessage=""
+          >OPEN IN AESTUDIO</button>
+
+          <!-- this has to be hidden, removing it causes glitches. -->
+        <nb-actions style="visibility: hidden; height:0px" [size]="actionSize" fullWidth>
+          <nb-action matRipple>
+            <nb-icon icon="pause-circle-outline" pack="eva"></nb-icon>
+            Pause
+          </nb-action>
+          <nb-action matRipple>
+            <nb-icon icon="list-outline" pack="eva"></nb-icon>
+            Logs
+          </nb-action>
+          <nb-action matRipple>
+            <nb-icon icon="search-outline" pack="eva"></nb-icon>
+            Search
+          </nb-action>
+          <nb-action matRipple>
+            <nb-icon icon="settings-2-outline" pack="eva"></nb-icon>
+            Setup
+          </nb-action>
+        </nb-actions>
+      </nb-card-footer>
+      
+    </nb-card>
+    
+  </div>
 
 
   

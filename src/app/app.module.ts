@@ -13,6 +13,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModulesModule } from './shared-modules/shared-modules.module';
+import { NgxMonacoEditorConfig } from 'ngx-monaco-editor-v2';
+import { MonacoEditorModule, MONACO_PATH } from '@materia-ui/ngx-monaco-editor';
 
 import {
   NbChatModule,
@@ -42,12 +44,19 @@ import {
     NbDialogModule.forRoot(),
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
+    MonacoEditorModule,
     NbChatModule.forRoot({
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
     SharedModulesModule
+  ],
+  providers: [ 
+    {
+      provide: MONACO_PATH,
+      useValue: 'https://unpkg.com/monaco-editor@0.31.1/min/vs'
+    }
   ],
   bootstrap: [AppComponent],
 })

@@ -41,6 +41,7 @@ import { DashboardModule } from '../dashboard/dashboard.module'
 import { SharedModulesModule } from '../../shared-modules/shared-modules.module';
 import { FungibleTokenComponent } from './fungible-token/fungible-token.component';
 //import { SecurityCamerasComponent } from '../dashboard/dashboard.module'
+import { MonacoEditorModule, MONACO_PATH } from '@materia-ui/ngx-monaco-editor';
 
 
 const materialModules = [
@@ -76,7 +77,8 @@ const materialModules = [
     ngFormsModule,
     DashboardModule,
     ...materialModules,
-    SharedModulesModule
+    SharedModulesModule,
+    MonacoEditorModule
   ],
   declarations: [
     FormsComponent,
@@ -87,6 +89,12 @@ const materialModules = [
     DatepickerComponent,
     MaterialInputsComponent,
     MaterialButtonsComponent,
+  ],
+  providers: [ 
+    {
+      provide: MONACO_PATH,
+      useValue: 'https://unpkg.com/monaco-editor@0.31.1/min/vs'
+    }
   ],
   exports: [DatepickerComponent]
 })

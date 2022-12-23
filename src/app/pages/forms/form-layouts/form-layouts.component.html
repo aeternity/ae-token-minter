@@ -134,7 +134,7 @@
     <!-- Success notification-->
     <div *ngIf="this.aeService.deployedNftAddress != ''" class="slideUpNotification" >
     <!-- <div *ngIf="true" class="slideUpNotification" > -->
-      <ngx-status-card [title]="'NFT MINTED !'" [type]="'success'" [nbIconName]="'nb-checkmark'" [nftAddress]="deployedNftAddress">
+      <ngx-status-card [title]="'NFT MINTED !'" [type]="'success'" [nbIconName]="'nb-checkmark'" [contractType]="'nft'" [nftAddress]="deployedNftAddress">
         <!-- <i [ngClass]="'nb-checkmark'"></i> -->
         Your NFT has successfully been <br> minted to the Blockchain! 
       </ngx-status-card>

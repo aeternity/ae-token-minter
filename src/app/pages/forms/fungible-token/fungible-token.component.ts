@@ -2,6 +2,7 @@ import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Camera, SecurityCamerasData } from '../../../@core/data/security-cameras';
 import { debounceTime, distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
 import { AbstractControl, FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { AeternityService } from '../../../services/aeternity.service';
 // import { aex141nft } from '../../../interfaces/NFT';
@@ -9,6 +10,15 @@ import { aex141nftContract } from '../../../../assets/contracts/aex141-nft-colle
 import { StateService } from '../../../@core/utils';
 import { WalletConnectionStatus } from '../../../services/aeternity.service'
 import { NbPopoverDirective } from '@nebular/theme';
+import FUNGIBLE_TOKEN_CONTRACT from 'aeternity-fungible-token/FungibleTokenFull.aes';
+/* import {
+  MonacoEditorComponent,
+  MonacoEditorConstructionOptions,
+  MonacoEditorLoaderService,
+  MonacoStandaloneCodeEditor
+} from '@materia-ui/ngx-monaco-editor'; */
+
+import type  { MonacoEditorConstructionOptions } from '@materia-ui/ngx-monaco-editor/lib/interfaces/'
 
 @Component({
   selector: 'ngx-form-layouts',
@@ -33,37 +43,77 @@ export class FungibleTokenComponent {
 
 
   /* dApp related start */
+  deployedTokenAddress: string
   tokenData: FormGroup;
-
-  contractTypeOption = 'basic' // needs to correspond the default active contract type
-  contractTypes = [
-    { label: 'Basic NFT', value: 'basic', checked: true },
-    { label: 'Mintable / Burnable', value: 'mintable' },
-  ];
-
-  deployedNftAddress; // contract address of the deployed NFT
+  
 
   /* dApp related end  */
   
+
+  /* code previewer start  */
+  editorOptions : MonacoEditorConstructionOptions = {theme: 'vs-dark', 
+  language: 'aes', 
+  fontSize: 14,
+  cursorBlinking: 'phase', 
+  cursorSmoothCaretAnimation: true,
+  contextmenu: true,
+  scrollBeyondLastLine: false,
+  automaticLayout: true,
+  smoothScrolling: true,
+  readOnly: true,
+};
+
+  /* code: string = 'function x() {\nconsole.log("Hello world!");\n}'; */
+  code: string = FUNGIBLE_TOKEN_CONTRACT;
+  /* code previewer end  */
+
   /* helpers start  */
   walletConnectionStatus = WalletConnectionStatus;
 
   constructor(
     private securityCamerasService: SecurityCamerasData,
     public aeService: AeternityService,
-    public state : StateService
+    public state : StateService,
+    /* private monacoLoaderService: MonacoEditorLoaderService, */
   ){
     this.isSingleView = true; // UI
 
-/*     const onNetworkChange = (params : any ) => {
-      // TODO: Make a toast for network changes
-      // TODO: Display warning when on wrong network
-      console.log("Network change:", params.networkId);
-    }; */
+    // try getting this event trigger to work one day
+/* 
+    this.monacoLoaderService.isMonacoLoaded$
+    .pipe(
+       filter(isLoaded => !!isLoaded),
+       take(1) 
+    )
+    .subscribe(() => {
+      this.registerMonacoCustomTheme();
+    }); */
 
     
   }
 
+
+/*     registerMonacoCustomTheme() {
+      monaco.editor.defineTheme('myCustomTheme', {
+        base: 'hc-black', // can also be vs or hc-black, vs-dark
+        inherit: false, // can also be false to completely replace the builtin rules
+        rules: [
+          {
+            token: 'comment',
+            foreground: 'ffa500',
+            fontStyle: 'italic underline'
+          },
+          { token: 'comment.js', foreground: '008800', fontStyle: 'bold' },
+          { token: 'comment.css', foreground: '0000ff' } // will inherit fontStyle from `comment` above
+        ],
+        colors: {}
+      });
+    } */
+
+  
+
+
+  
   ngOnInit() {
 
  /*    setInterval(()=> {
@@ -84,15 +134,6 @@ export class FungibleTokenComponent {
     })
     
     this.setInputFieldWarningPopovers()
-
-
-
-    /* this.setInputFieldWarningPopovers();  */
-    
-    setInterval(() => {
-      console.log( "Name invalid?", this.tokenData.controls['tokenName'].invalid)
-
-    }, 2000)
 
     setTimeout(() => {
       this.walletInstallPromptCanBeShown = true
@@ -148,82 +189,34 @@ export class FungibleTokenComponent {
 
   async mint() {
 
-    this.aeService.deployedNftAddress = ''
+    this.deployedTokenAddress = null
     this.showSpinnerOnMintButton = true;
-    // TODO mint multiple NFTs; 
-    // MVP - mint only one NFT into the new contract
-    const nfts = [
-      {
-        "name": this.tokenData.get('nftName').value,
-        "description": this.tokenData.get('nftDescription').value,
-        "media_type": "IMAGE",
-        "media_url": this.tokenData.get('nftBaseUrl').value
-      }
-    ];
-/*     const nfts : Array<aex141nft> = [
-      {
-        "name": this.nftData.get('nftName').value,
-        "description": this.nftData.get('nftDescription').value,
-        "media_type": "IMAGE",
-        "media_url": this.nftData.get('nftBaseUrl').value,
-        "immutable_attributes": {
-            "apes_count": 2,
-            "moon_visible": true
-        },
-        "mutable_attributes": {
-            "retries": 0
-        }
-      }
-    ]; */
 
-    const senderAddress = await this.aeService.sdkState.address;
+    const name = this.tokenData.get('tokenName').value
+    const decimals = this.tokenData.get('tokenDecimals').value
+    const symbol = this.tokenData.get('tokenSymbol').value
+    const balanceOwner = this.tokenData.get('tokenBalanceOwner').value
 
-    // const CONTRACT = './../../../../assets/contracts/aex141-nft-collection-example/MintableMappedMetadataNFT-flattened.aes';
-    const source = aex141nftContract;
+    const contract = await this.aeService.aeSdk.getContractInstance({
+      source: FUNGIBLE_TOKEN_CONTRACT
+    });
+    
+    try {
+    const deployed = await contract.deploy([
+      name,
+      decimals,
+      symbol,
+      `${balanceOwner}${'0'.repeat(decimals)}`,
+    ]);
+  
+      console.log("--------> deployed:", deployed)
+      this.showSpinnerOnMintButton = false;
+      this.deployedTokenAddress = deployed.address
+    } catch (error) {
+      console.error("--------> error:", error);
 
-    console.log("Compiling....");
-    const contract = await this.aeService.aeSdk.getContractInstance({ source });
+    } 
 
-    // deploy
-    console.log("Deploying with: ",this.tokenData.get('nftBaseUrl').value, this.tokenData.get('nftSymbol').value, 1);
-    //debugger
-    await contract.deploy([
-      this.tokenData.get('nftName').value,
-      this.tokenData.get('nftSymbol').value,
-      1 // "token limit - harcode for now
-    ]); 
-
-/*     await contract.deploy([
-        "Test",
-        "Test"
-    ]); */
-
- 
-    console.log(`Contract successfully deployed!`);
-    console.log(`Contract address: ${contract.deployInfo.address}`);
-    console.log(`Tx-Hash: ${contract.deployInfo.txData.hash}`);
-    console.log(`Gas used: ${contract.deployInfo.result.gasUsed}`);
-    console.log(`------------------------------------------------------------------------------------------`);
-    console.log(`------------------------------------------------------------------------------------------`);
-
-    // mint
-    for(let i=0; i<nfts.length; i++) {
-        const nftMetadataMapStringValues = new Map(Object.entries(nfts[i]).map(([k, v]) => [k, typeof v === 'object' ? JSON.stringify(v) : v]));
-        console.log("Feeding the contract:", nftMetadataMapStringValues)
-        const tx = await contract.methods.mint(
-            senderAddress,
-            {'MetadataMap': [nftMetadataMapStringValues]}
-        );
-        console.log(`Minted '${nftMetadataMapStringValues.get('name')}' with id '${tx.decodedResult}'`);
-        console.log(`Tx-Hash: ${tx.hash}`);
-        console.log(`Gas used: ${tx.result.gasUsed}`);
-        console.log(`------------------------------------------------------------------------------------------`);
-        console.log(`------------------------------------------------------------------------------------------`);
-    };
-    this.aeService.deployedNftAddress = contract.deployInfo.address;
-    this.showSpinnerOnMintButton = false;
-
-    this.deployedNftAddress = contract.deployInfo.address;
   }
  
   log(event){

@@ -25,7 +25,7 @@ import { NbPopoverDirective } from '@nebular/theme';
         </div>
       </div>
 
-      <div (click)="this.router.navigate(['/nft/show', this.nftAddress])" class="icon-container" style="margin-left: auto">
+      <div (click)="this.router.navigate(['/' + contractType + '/show', this.nftAddress])" class="icon-container" style="margin-left: auto">
         <div class="greyContainer icon status-{{ type }}">
         View
         </div>
@@ -47,6 +47,7 @@ export class StatusCardComponent {
   @Input() on = true;
   @Input() nbIconName: string;
   @Input() nftAddress: string;
+  @Input() contractType: 'nft' | 'token'
 
   @ViewChild(NbPopoverDirective) popover: NbPopoverDirective;
 
