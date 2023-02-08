@@ -1,6 +1,6 @@
-
-<div  *ngFor='let nft of nfts'  class="row">
-
+<div *ngIf="!notFound">
+  <div *ngFor='let nft of nfts'  class="row">
+    
     <ngx-security-cameras class="col-md-12 col-lg-8 col-xxxl-8 centerPreview slideLeft" [nftBaseUrl]="nft.nftBaseUrl" [nftName]="nft.nftName" ></ngx-security-cameras>
 <!-- Info card on the side  -->
 <!-- TODO: Show loading placeholders with https://www.codepicky.com/content-placeholders/ -->
@@ -95,4 +95,20 @@
   </div>
 
 
+  </div>
+</div>
+
+<div *ngIf="notFound" class="col-md-6 offset-md-3">
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <nb-card>
+    <nb-card-header>OH, PLEASE CHECK AGAIN !</nb-card-header>
+    <nb-card-body>
+      An NFT contract for the addres you provided could not be found, did you use the right one?
+    </nb-card-body>
+    <!-- <nb-card-footer>By Wikipedia</nb-card-footer> -->
+  </nb-card>
 </div>

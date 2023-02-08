@@ -11,7 +11,11 @@
     <ng-icon name="cryptoAe" size="40" color="white"></ng-icon>
      <!--  <nb-icon [icon]="(materialTheme$ | async) ? 'menu-outline' : 'menu-2-outline'"></nb-icon> -->
     </a>
-    <a class="logo" href="#" (click)="navigateHome()">AE-<span>Minter</span></a>
+    <a class="logo" (click)="navigate('/')">AE-<span>Minter</span></a>
+
+    <a class="logo" style='font-size: 1.25rem;' (click)="navigate('nft/mint')"><span>NFTs</span></a>
+    <a class="logo" style='font-size: 1.25rem;' (click)="navigate('token/create')"><span>TOKENS</span></a>
+
   </div>
 
   <!-- theme selector -->
@@ -32,7 +36,7 @@
 <div class="header-container">
 
   <mat-form-field  style="transform: translateY(7px)" [ngClass]="'mat-form-field-hide-placeholder'" appearance="fill">
-    <mat-label>Search Token or NFT</mat-label>
+    <mat-label>Search NFT by address</mat-label>
     <input [(ngModel)]="this.searchFormInput" (keydown.enter)="showToken($event)" matInput placeholder="Paste the contract address of your Token or NFT, e.g. ct_1337..">
     <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
     <mat-icon class="searchIcon" matSuffix>search</mat-icon>

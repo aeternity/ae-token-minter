@@ -19,6 +19,7 @@ export class DatepickerComponent {
   private sub: Subscription;
   nftContractAddress: string = ''
 
+  notFound : boolean = false
 
   nfts =
   [{
@@ -42,9 +43,8 @@ export class DatepickerComponent {
       
       (async () => {
         
-        // setTimeout(async () => {
-
-          // let  [metaInfo, nftDataFromContract] = await aeService.readNftDataFrom("ct_jYugRQynbQZxtGKLGaRH8HDZH53pH71j6cr7V5YZdvf18B3Sx")
+        try {
+          
           let  [metaInfo, nftDataFromContract, owner] = await aeService.readNftDataFrom(this.nftContractAddress)
           
           console.log("nfts:", nftDataFromContract)
@@ -57,8 +57,21 @@ export class DatepickerComponent {
             nftMinted: dayjs(1669636502271).format('DD MMM YYYY'),
             nftOwner: owner
           }})
-        })()
-           });
+        } catch(e) {
+          this.notFound = true
+          console.log('bogus address:', e)
+        }
+
+        }
+        
+        )()
+           
+      
+      
+      }
+           
+           
+           );
 
 // }, 3500);
 

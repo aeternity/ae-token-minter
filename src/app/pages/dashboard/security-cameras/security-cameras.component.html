@@ -6,29 +6,12 @@
 
     NFT Preview  &nbsp; <nb-icon *ngIf="helpMessage" class="centerIcon" [icon]="'question-mark-circle-outline'" pack="eva" nbPopover="{{helpMessage}}" nbPopoverTrigger="hover" nbPopoverPlacement="right"></nb-icon>
 
-    <!-- 
-    <button class="single-view-button"
-            nbButton
-            size="small"
-            [appearance]="isSingleView ? 'filled' : 'outline'"
-            (click)="isSingleView = true">
-      <i class="nb-square"></i>
-    </button>
-    <button class="grid-view-button"
-            nbButton
-            size="small"
-            [appearance]="isSingleView ? 'outline' : 'filled'"
-            (click)="isSingleView = false">
-      <nb-icon icon="grid" pack="eva"></nb-icon>
-    </button> -->
   </nb-card-header>
 
   <div class="grid-container">
 
     <div class="single-view" *ngIf="isSingleView">
-      <!-- <div class="camera single" [style.background-image]="'url(' + 'assets/images/placeholder.png' + ')'"> -->
       <div class="camera single" [style.background-image]=" nftBaseUrl?.length < 1 ? 'url(' + 'assets/images/placeholder-darker.png' + ')' : 'url(' + nftBaseUrl + ')' ">
-      <!-- <div class="camera single" [style.background-image]="'url(' + nftBaseUrl != '' ? nftBaseUrl : 'assets/images/camera3.jpg' + ')'"> -->
         <span class="camera-name">{{ nftName.length > 0 ? nftName : "(Enter a name for your NFT)"}}</span>
       </div>
     </div>

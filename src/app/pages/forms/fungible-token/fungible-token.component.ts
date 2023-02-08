@@ -44,7 +44,7 @@ export class FungibleTokenComponent {
 
 
   /* dApp related start */
-  deployedTokenAddress: string = 'foo';
+  deployedTokenAddress: string;
   tokenData: FormGroup;
   burnable = true
   mintable = false

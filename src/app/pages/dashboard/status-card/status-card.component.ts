@@ -28,7 +28,7 @@ import { NgOptimizedImage } from '@angular/common'
 
       <!-- 'View button for NFTs' -->
       <div *ngIf="contractType == 'nft'" (click)="this.router.navigate(['/' + contractType + '/show', this.nftAddress])" class="icon-container" style="margin-left: auto">
-        <div class="greyContainer icon status-{{ type }}">
+        <div class="greyContainer greyContainerNft icon status-{{ type }}">
         View
         </div>
       </div>
@@ -59,7 +59,7 @@ import { NgOptimizedImage } from '@angular/common'
       </ng-template>
 
       <div nbPopover="Address copied to clipboard !" nbPopoverTrigger="noop" nbPopoverContext="share" class="icon-container" style="margin-left: 0" (click)="this.copyContractAddress(); setPopoverVisible('share', true, 3000); setPopoverVisible('shwallet', false)">
-        <div class="greyContainer icon status-{{ type }}">
+        <div class="greyContainer greyContainerNft icon status-{{ type }}">
         Share
         </div>
       </div>
@@ -97,7 +97,6 @@ console.log(icons)
     console.log("triggered:", id)
     let popovers : Array<NbPopoverDirective> = this.popovers["_results"]
     let onePopover : NbPopoverDirective = popovers.find(element => element.context == id)
-debugger
     show ?
     onePopover.show() :
     onePopover.hide()
