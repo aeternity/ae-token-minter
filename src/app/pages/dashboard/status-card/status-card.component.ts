@@ -34,19 +34,16 @@ import { NgOptimizedImage } from '@angular/common'
       </div>
 
       <!-- 'View button for tokens' -->
-      <div *ngIf="contractType == 'token'" class="icon-container" style="margin-left: auto" >
-        <div [nbPopover]="walletPreview" nbPopoverTrigger="hover" nbPopoverPlacement="top" class="greyContainer token icon status-{{ type }}">
+      <div *ngIf="contractType == 'token'" (mouseover)="setPopoverVisible('shwallet', true)" (mouseout)="setPopoverVisible('shwallet', false)" class="icon-container" style="margin-left: auto" >
+        <div [nbPopover]="walletPreview" nbPopoverTrigger="noop" nbPopoverContext="shwallet" nbPopoverPlacement="top" class="greyContainer token icon status-{{ type }}">
         View
         </div>
       </div>
       <ng-template  #walletPreview>
-        
-      
 
 
       <!-- <nb-card size="medium" class="slideUp"> -->
-      <nb-card class="slideUp" style='width:300px'>
-      
+      <nb-card class="slideUp" style='width:400px'>
 
       <nb-card-header> Find it here ! </nb-card-header>
       <nb-card-body> 
@@ -55,17 +52,13 @@ import { NgOptimizedImage } from '@angular/common'
           <img [src]="'assets/images/shtokenpreview.png'" [alt]="'lol'" style='width:100%; height:auto; object-fit: contain' />
           
         </div>
-
-
-           <!-- <img rawSrc="'assets/images/shtokenpreview.png'" width="200"   height="200" priority> -->
-    <!--    <img src="assets/images/shtokenpreview.png" alt=""> -->
       </nb-card-body>
       <nb-card-footer>Open Superhero Wallet, click your account and select the token you've just created !</nb-card-footer>
     </nb-card>
 
       </ng-template>
 
-      <div (click)="this.copyContractAddress()" nbPopover="Address copied to clipboard !" nbPopoverTrigger="noop" class="icon-container" style="margin-left: 0">
+      <div nbPopover="Address copied to clipboard !" nbPopoverTrigger="noop" nbPopoverContext="share" class="icon-container" style="margin-left: 0" (click)="this.copyContractAddress(); setPopoverVisible('share', true, 3000); setPopoverVisible('shwallet', false)">
         <div class="greyContainer icon status-{{ type }}">
         Share
         </div>
@@ -101,8 +94,10 @@ console.log(icons)
   }
 
   setPopoverVisible(id : string, show: boolean, hideAfter? : number) {
+    console.log("triggered:", id)
     let popovers : Array<NbPopoverDirective> = this.popovers["_results"]
     let onePopover : NbPopoverDirective = popovers.find(element => element.context == id)
+debugger
     show ?
     onePopover.show() :
     onePopover.hide()
