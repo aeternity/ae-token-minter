@@ -76,38 +76,30 @@
 
           <!-- Balance Owner -->
           <div class="form-group row" nbPopover="You need to generate an initial token supply" nbPopoverTrigger="noop" nbPopoverContext="tokenBalanceOwner">
-            <label for="inputTokenBalanceOwner" class="label col-sm-3 col-form-label">Balance Owner</label>
+            <label for="inputTokenBalanceOwner" class="label col-sm-3 col-form-label">Total Amount</label>
             <div class="col-sm-9 leaveSpaceForHelp">
               <input type="url" formControlName="tokenBalanceOwner" name="tokenBalanceOwner" nbInput fullWidth id="inputTokenBalanceOwner" placeholder="Initial balance of the token creator" (blur)="checkValidity('tokenBalanceOwner')">
             </div>
-            <nb-icon class="centerIcon" [icon]="'question-mark-circle-outline'" pack="eva" nbPopover="How many tokens shall exist? They will all be assigned to you in the beginning." nbPopoverTrigger="hover" nbPopoverPlacement="right"></nb-icon>
+            <nb-icon class="centerIcon" [icon]="'question-mark-circle-outline'" pack="eva" nbPopover="Whole amount will initially be assigned to you." nbPopoverTrigger="hover" nbPopoverPlacement="right"></nb-icon>
           </div>
 
-          <!-- NFT type  -->
-          <!-- <div class="form-group row">
-            <label for="inputnftBaseUrl1" class="label col-sm-3 col-form-label">Data Type</label>
-            <div class="col-sm-9">
+          <!-- burnable  -->
+          <div class="form-group row">
+            <label for="burnable" class="label col-sm-3 col-form-label">Burnable</label>
+            <nb-checkbox [checked]="burnable" (checkedChange)="burnable = !burnable" style="padding: 7.5px 15px 0 15px" id="burnable">  
+               <nb-icon class="checkmarkInfoIcon" [icon]="'question-mark-circle-outline'" pack="eva" nbPopover="Users can burn parts of all of their balance" nbPopoverTrigger="hover" nbPopoverPlacement="right"></nb-icon>
+            </nb-checkbox>
+          </div>
 
-              <nb-select matRipple selected="1">
-                <nb-option matRipple value="1">URL</nb-option>
-                <nb-option matRipple value="2">IPFS</nb-option>
-                <nb-option matRipple value="2">Object ID</nb-option>
-                <nb-option matRipple value="2">Map</nb-option>
-              </nb-select>
-    
-            </div>
-          </div> -->
+          <!-- mintable-->
+          <div class="form-group row">
+          <label for="mintable" class="label col-sm-3 col-form-label">Mintable</label>
+          <nb-checkbox [checked]="mintable" (checkedChange)="mintable = !mintable" id="mintable" style="padding: 7.5px 15px 0 15px" >
+              <nb-icon class="checkmarkInfoIcon" [icon]="'question-mark-circle-outline'" pack="eva" nbPopover="The creator of the token can mint more tokens" nbPopoverTrigger="hover" nbPopoverPlacement="right"></nb-icon>
+          </nb-checkbox>
+        </div>
 
-          <!-- Contract type. -->
-<!--           <div class="form-group row">
-            <label class="col-sm-3 label">Contract Type</label>
-            <div class="col-sm-9">
-              <nb-radio-group name="contractTypeOption" [(value)]="contractTypeOption" >
-                <nb-radio *ngFor="let option of contractTypes" [value]="option.value" [checked]="option.checked">{{ option.label}}</nb-radio>
 
-              </nb-radio-group>
-            </div>
-          </div> -->
 <!-- Mint Button -->
           <div class="form-group row">
             <div class="offset-sm-3 col-sm-9" style="margin-top: 25px;">

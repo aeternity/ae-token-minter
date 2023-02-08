@@ -31,6 +31,7 @@ import { TrafficComponent } from './traffic/traffic.component';
 import { TrafficChartComponent } from './traffic/traffic-chart.component';
 import { WalletInfoCardComponent } from './wallet-info-card/wallet-info-card.component';
 import { FormsModule } from '@angular/forms';
+import { SharedModulesModule } from '../../shared-modules/shared-modules.module';
 
 @NgModule({
   imports: [
@@ -48,7 +49,7 @@ import { FormsModule } from '@angular/forms';
     NbIconModule,
     NbButtonModule,
     NgxEchartsModule,
-    NbLayoutModule
+    NbLayoutModule,
   ],
   declarations: [
     DashboardComponent,

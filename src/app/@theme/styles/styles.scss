@@ -23,6 +23,13 @@
 @import './overrides';
 @import './material/material-overrides';
 
+/* .nb-overlay-top {
+  width: 50% !important;
+}
+.nb-overlay-right {
+  width: 50% !important;
+} */
+
 // install the framework and custom global styles
 @include nb-install() {
 

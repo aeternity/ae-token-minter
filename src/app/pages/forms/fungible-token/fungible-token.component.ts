@@ -11,6 +11,7 @@ import { StateService } from '../../../@core/utils';
 import { WalletConnectionStatus } from '../../../services/aeternity.service'
 import { NbPopoverDirective } from '@nebular/theme';
 import FUNGIBLE_TOKEN_CONTRACT from 'aeternity-fungible-token/FungibleTokenFull.aes';
+
 /* import {
   MonacoEditorComponent,
   MonacoEditorConstructionOptions,
@@ -43,9 +44,10 @@ export class FungibleTokenComponent {
 
 
   /* dApp related start */
-  deployedTokenAddress: string
+  deployedTokenAddress: string = 'foo';
   tokenData: FormGroup;
-  
+  burnable = true
+  mintable = false
 
   /* dApp related end  */
   
@@ -77,40 +79,8 @@ export class FungibleTokenComponent {
     /* private monacoLoaderService: MonacoEditorLoaderService, */
   ){
     this.isSingleView = true; // UI
-
-    // try getting this event trigger to work one day
-/* 
-    this.monacoLoaderService.isMonacoLoaded$
-    .pipe(
-       filter(isLoaded => !!isLoaded),
-       take(1) 
-    )
-    .subscribe(() => {
-      this.registerMonacoCustomTheme();
-    }); */
-
     
   }
-
-
-/*     registerMonacoCustomTheme() {
-      monaco.editor.defineTheme('myCustomTheme', {
-        base: 'hc-black', // can also be vs or hc-black, vs-dark
-        inherit: false, // can also be false to completely replace the builtin rules
-        rules: [
-          {
-            token: 'comment',
-            foreground: 'ffa500',
-            fontStyle: 'italic underline'
-          },
-          { token: 'comment.js', foreground: '008800', fontStyle: 'bold' },
-          { token: 'comment.css', foreground: '0000ff' } // will inherit fontStyle from `comment` above
-        ],
-        colors: {}
-      });
-    } */
-
-  
 
 
   
@@ -230,4 +200,8 @@ export class FungibleTokenComponent {
   //   this.
   // }
 
+}
+interface contractFeatureOptions {
+  burnable: boolean,
+  mintable: boolean,
 }
