@@ -10,7 +10,7 @@ import { aex141nftContract } from '../../../../assets/contracts/aex141-nft-colle
 import { StateService } from '../../../@core/utils';
 import { WalletConnectionStatus } from '../../../services/aeternity.service'
 import { NbPopoverDirective } from '@nebular/theme';
-import FUNGIBLE_TOKEN_CONTRACT from 'aeternity-fungible-token/FungibleTokenFull.aes';
+import tokenContract from './FungibleTokenFull.aes';
 
 /* import {
   MonacoEditorComponent,
@@ -66,7 +66,7 @@ export class FungibleTokenComponent {
 };
 
   /* code: string = 'function x() {\nconsole.log("Hello world!");\n}'; */
-  code: string = FUNGIBLE_TOKEN_CONTRACT;
+  code: string
   /* code previewer end  */
 
   /* helpers start  */
@@ -79,13 +79,14 @@ export class FungibleTokenComponent {
     /* private monacoLoaderService: MonacoEditorLoaderService, */
   ){
     this.isSingleView = true; // UI
+    this.regenerateCode()
     
   }
 
 
   
   ngOnInit() {
-
+    this.regenerateCode()
  /*    setInterval(()=> {
       console.log('popovers?', this.popovers)
       
@@ -122,6 +123,9 @@ export class FungibleTokenComponent {
       /* setInterval(() => {console.log(this.nftData)}, 3000) */
   }
 
+  regenerateCode() {
+    this.code = tokenContract.getCode(this.burnable, this.mintable);
+  }
 
   checkValidity(inputName : string){
     // assuming there are only VALID and INVALID statuses right now.
@@ -168,7 +172,7 @@ export class FungibleTokenComponent {
     const balanceOwner = this.tokenData.get('tokenBalanceOwner').value
 
     const contract = await this.aeService.aeSdk.getContractInstance({
-      source: FUNGIBLE_TOKEN_CONTRACT
+      source: this.code
     });
     
     try {

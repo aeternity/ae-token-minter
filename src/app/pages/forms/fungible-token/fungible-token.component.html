@@ -86,7 +86,7 @@
           <!-- burnable  -->
           <div class="form-group row">
             <label for="burnable" class="label col-sm-3 col-form-label">Burnable</label>
-            <nb-checkbox [checked]="burnable" (checkedChange)="burnable = !burnable" style="padding: 7.5px 15px 0 15px" id="burnable">  
+            <nb-checkbox [checked]="burnable" (checkedChange)="burnable = !burnable; regenerateCode()" style="padding: 7.5px 15px 0 15px" id="burnable">  
                <nb-icon class="checkmarkInfoIcon" [icon]="'question-mark-circle-outline'" pack="eva" nbPopover="Users can burn parts of all of their balance" nbPopoverTrigger="hover" nbPopoverPlacement="right"></nb-icon>
             </nb-checkbox>
           </div>
@@ -94,7 +94,7 @@
           <!-- mintable-->
           <div class="form-group row">
           <label for="mintable" class="label col-sm-3 col-form-label">Mintable</label>
-          <nb-checkbox [checked]="mintable" (checkedChange)="mintable = !mintable" id="mintable" style="padding: 7.5px 15px 0 15px" >
+          <nb-checkbox [checked]="mintable" (checkedChange)="mintable = !mintable; regenerateCode()" id="mintable" style="padding: 7.5px 15px 0 15px" >
               <nb-icon class="checkmarkInfoIcon" [icon]="'question-mark-circle-outline'" pack="eva" nbPopover="The creator of the token can mint more tokens" nbPopoverTrigger="hover" nbPopoverPlacement="right"></nb-icon>
           </nb-checkbox>
         </div>
@@ -176,7 +176,7 @@
           nbSpinnerMessage=""
           >OPEN IN AESTUDIO</button> -->
 
-          <!-- this has to be hidden, removing it causes glitches. -->
+          <!-- this must be kept hidden, removing it causes glitches. -->
         <nb-actions style="visibility: hidden; height:0px" [size]="actionSize" fullWidth>
           <nb-action matRipple>
             <nb-icon icon="pause-circle-outline" pack="eva"></nb-icon>

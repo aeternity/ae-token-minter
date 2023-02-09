@@ -94,7 +94,6 @@ console.log(icons)
   }
 
   setPopoverVisible(id : string, show: boolean, hideAfter? : number) {
-    console.log("triggered:", id)
     let popovers : Array<NbPopoverDirective> = this.popovers["_results"]
     let onePopover : NbPopoverDirective = popovers.find(element => element.context == id)
     show ?
