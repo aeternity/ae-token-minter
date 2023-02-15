@@ -53,10 +53,10 @@ import {
     SharedModulesModule
   ],
   providers: [ 
-    {
+   /*  { optional: fetch lib from CDN, unpkg isn't realiable thopugh, pick https://cdnjs.com/libraries/monaco-editor instead.
       provide: MONACO_PATH,
       useValue: 'https://unpkg.com/monaco-editor@0.31.1/min/vs'
-    }
+    } */
   ],
   bootstrap: [AppComponent],
 })
